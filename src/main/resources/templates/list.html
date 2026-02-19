@@ -46,7 +46,7 @@
                 <td data-th-text="${task.name}"></td>
                 <td data-th-text="${task.date}"></td>
                 <td data-th-text="${task.status}"></td>
-                <th><a class="btn btn-secondary" role="button" th:href="@{'/edit/'+${task.id}}">Editar</a></th>
+                <th><a class="btn btn-secondary" role="button" th:href="@{'/create/edit/'+${task.id}}">Editar</a></th>
                 <th><a class="btn btn-danger" role="button" th:href="'/delete/'+${task.id}">Excluir</a></th>
             </tr>
 
