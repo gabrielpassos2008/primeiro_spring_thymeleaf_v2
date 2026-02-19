@@ -9,11 +9,15 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.primeiro_thymeleaf.Service.TaskService;
 import com.example.primeiro_thymeleaf.model.Task;
 
-// Indica que essa classe é um controller
+// Indica que essa classe é um controller do Spring MVC
 @Controller
 public class TaskController {
+
+    // Declaração do service que será usado para acessar a lógica de negócio
     private final TaskService taskService;
 
+    // Construtor com injeção de dependência
+    // O Spring automaticamente injeta o TaskService aqui
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -25,54 +29,69 @@ public class TaskController {
         return "home";
     }
 
-    // Rota GET para abrir a página de criação REFATORADO
+    // Rota GET para abrir a página de criação
     @GetMapping("/create")
     public ModelAndView getCreate() {
-        // Cria um ModelAndView apontando para a página create.html
+
+        // Cria um ModelAndView apontando para o template create.html
         ModelAndView mv = new ModelAndView("create");
 
         // Envia um objeto Task vazio para o formulário
-        // Isso é necessário para o Thymeleaf conseguir fazer o binding
+        // Necessário para o Thymeleaf fazer o binding dos campos
         mv.addObject("task", new Task());
 
         return mv;
     }
 
-    // Rota POST para salvar a tarefa (criar ou editar) REFATORADO
+    // Rota POST responsável por salvar (criar ou editar) uma tarefa
     @PostMapping("/create")
     public String postCreate(Task task) {
+
+        // Chama o service para salvar a tarefa
+        // A lógica de salvar (criar ou editar) está na camada de Service
         taskService.saveTask(task);
-        // Redireciona para a página de listagem
+
+        // Redireciona para a página de listagem após salvar
         return "redirect:/list";
     }
 
-    // Rota GET para listar todas as tarefas REFATORADO
+    // Rota GET para listar todas as tarefas
     @GetMapping("/list")
     public ModelAndView getList() {
 
         // Cria ModelAndView apontando para list.html
         ModelAndView mv = new ModelAndView("list");
 
-        // Envia a lista de tarefas para a view
+        // Busca a lista de tarefas no service
+        // E envia para a view com o nome "tasks"
         mv.addObject("tasks", taskService.returnList());
 
         return mv;
     }
 
-    // Rota GET para editar uma tarefa específica REFATORADO
+    // Rota GET para editar uma tarefa específica
+    // O {id} vem da URL (ex: /edit/1)
     @GetMapping("/edit/{id}")
     public ModelAndView getEdit(@PathVariable("id") Long id) {
+
         // Reutiliza a página create.html para edição
         ModelAndView mv = new ModelAndView("create");
-        // Envia a tarefa encontrada para o formulário (já preenchido)
+
+        // Busca a tarefa pelo ID no service
+        // E envia para o formulário já preenchido
         mv.addObject("task", taskService.EdirTask(id));
+
         return mv;
     }
 
-    // REFATORADO
+    // Rota GET para deletar uma tarefa
     @GetMapping("delete/{id}")
     public String getDeletar(@PathVariable("id") Long id) {
+
+        // Chama o service para excluir a tarefa pelo ID
         taskService.deleteTask(id);
+
+        // Redireciona para a home após deletar
         return "redirect:/";
     }
 }
