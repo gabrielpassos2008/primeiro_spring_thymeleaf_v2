@@ -16,7 +16,7 @@
             <a class="nav-link" href="/">Home</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="/create" >Cadastrar Tarefa</a>
+            <a class="nav-link" href="/create">Cadastrar Tarefa</a>
         </li>
         <li class="nav-item">
             <a class="nav-link active" href="/list" aria-current="page">Listar Tarefa</a>
@@ -25,6 +25,10 @@
 
 
     <h1 class="display-4 fw-bold text-body-emphasis fs-2 pt-2">Lista das Tarefas Cadastradas.</h1>
+    <form class="d-flex container">
+        <input class="form-control me-2" type="search" placeholder="Pesquisar tarefa">
+        <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
     <table class="table container">
         <thead>
             <tr>
@@ -42,8 +46,8 @@
                 <td data-th-text="${task.name}"></td>
                 <td data-th-text="${task.date}"></td>
                 <td data-th-text="${task.status}"></td>
-                <th><a class="btn btn-secondary"  role="button" th:href="@{'/edit/'+${task.id}}">Editar</a></th>
-                <th><a class="btn btn-danger"  role="button" th:href="'/delete/'+${task.id}">Excluir</a></th>
+                <th><a class="btn btn-secondary" role="button" th:href="@{'/edit/'+${task.id}}">Editar</a></th>
+                <th><a class="btn btn-danger" role="button" th:href="'/delete/'+${task.id}">Excluir</a></th>
             </tr>
 
         </tbody>

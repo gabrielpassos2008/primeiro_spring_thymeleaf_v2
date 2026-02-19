@@ -27,14 +27,13 @@
     <form class="container" method="post" action="/create" th:object="${task}">
         <input type="hidden" th:value="${task.id}" name="id">
         <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">Nome da Tarefa</label>
-            <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="name"
-                th:value="${task.name}">
+            <label for="inputTask" class="form-label">Nome da Tarefa</label>
+            <input type="text" class="form-control" id="inputTask" name="name" th:value="${task.name}">
         </div>
 
         <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label">Data da terafa</label>
-            <input type="text" class="form-control" id="exampleInputPassword1" name="date" th:value="${task.date}">
+            <label for="inputDate" class="form-label">Data da terafa</label>
+            <input type="text" class="form-control" id="inputDate" name="date" th:value="${task.date}">
         </div>
         <div class="mb-3">
             <select class="form-select" aria-label="Default select example" name="status">

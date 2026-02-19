@@ -9,14 +9,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.example.primeiro_thymeleaf.Service.TaskService;
 import com.example.primeiro_thymeleaf.model.Task;
 
 // Indica que essa classe é um controller
 @Controller
 public class TaskController {
-
-    // Lista que armazena as tarefas em memória (simulando um banco de dados)
-    List<Task> tasks = new ArrayList<>();
+    private final TaskService taskService = new TaskService();
 
     // Mapeia a rota principal "/"
     @GetMapping("/")
@@ -25,7 +24,7 @@ public class TaskController {
         return "home";
     }
 
-    // Rota GET para abrir a página de criação
+    // Rota GET para abrir a página de criação REFATORADO
     @GetMapping("/create")
     public ModelAndView getCreate() {
         // Cria um ModelAndView apontando para a página create.html
@@ -38,38 +37,15 @@ public class TaskController {
         return mv;
     }
 
-    // Rota POST para salvar a tarefa (criar ou editar)
+    // Rota POST para salvar a tarefa (criar ou editar) REFATORADO
     @PostMapping("/create")
     public String postCreate(Task task) {
-
-        // Se o ID não for nulo, significa que estamos EDITANDO
-        if (task.getId() != null) {
-
-            // Procura na lista a tarefa com o mesmo ID
-            Task taskFind = tasks.stream()
-                    .filter(taskItem -> task.getId().equals(taskItem.getId()))
-                    .findFirst()
-                    .get();
-
-            // Substitui a tarefa antiga pela nova versão editada
-            tasks.set(tasks.indexOf(taskFind), task);
-
-        } else {
-
-            // Se o ID for nulo, significa que estamos CRIANDO uma nova tarefa
-
-            // Gera um ID automático baseado no tamanho da lista
-            Long id = tasks.size() + 1L;
-
-            // Cria uma nova Task e adiciona na lista
-            tasks.add(new Task(id, task.getName(), task.getStatus(), task.getDate()));
-        }
-
+        taskService.saveTask(task);
         // Redireciona para a página de listagem
         return "redirect:/list";
     }
 
-    // Rota GET para listar todas as tarefas
+    // Rota GET para listar todas as tarefas REFATORADO
     @GetMapping("/list")
     public ModelAndView getList() {
 
@@ -77,33 +53,25 @@ public class TaskController {
         ModelAndView mv = new ModelAndView("list");
 
         // Envia a lista de tarefas para a view
-        mv.addObject("tasks", tasks);
+        mv.addObject("tasks", taskService.returnList());
 
         return mv;
     }
 
-    // Rota GET para editar uma tarefa específica
+    // Rota GET para editar uma tarefa específica REFATORADO
     @GetMapping("/edit/{id}")
     public ModelAndView getEdit(@PathVariable("id") Long id) {
-
         // Reutiliza a página create.html para edição
         ModelAndView mv = new ModelAndView("create");
-
-        // Procura a tarefa na lista pelo ID recebido na URL
-        Task taskFind = tasks.stream()
-                .filter(task -> id.equals(task.getId()))
-                .findFirst()
-                .get();
-
         // Envia a tarefa encontrada para o formulário (já preenchido)
-        mv.addObject("task", taskFind);
-
+        mv.addObject("task", taskService.EdirTask(id));
         return mv;
     }
 
+    // REFATORADO
     @GetMapping("delete/{id}")
     public String getDeletar(@PathVariable("id") Long id) {
-        tasks.removeIf(task -> task.getId().equals(id));
+        taskService.deleteTask(id);
         return "redirect:/";
     }
 }
