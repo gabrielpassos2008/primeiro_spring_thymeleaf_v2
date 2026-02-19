@@ -12,7 +12,11 @@ import com.example.primeiro_thymeleaf.model.Task;
 // Indica que essa classe é um controller
 @Controller
 public class TaskController {
-    private final TaskService taskService = new TaskService();
+    private final TaskService taskService;
+
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     // Mapeia a rota principal "/"
     @GetMapping("/")
