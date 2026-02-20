@@ -1,7 +1,6 @@
 package com.example.primeiro_thymeleaf.Service;
 
 import java.util.List;
-import java.util.stream.Stream;
 
 import org.springframework.stereotype.Service;
 
