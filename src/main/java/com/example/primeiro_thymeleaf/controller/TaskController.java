@@ -70,7 +70,7 @@ public class TaskController {
     }
 
     @GetMapping("create/edit/{id}")
-    public ModelAndView GetEditId(@PathVariable("id") Long id) {
+    public ModelAndView getEditId(@PathVariable("id") Long id) {
         ModelAndView mv = new ModelAndView("edit");
         mv.addObject("task", taskService.editTask(id));
         return mv;

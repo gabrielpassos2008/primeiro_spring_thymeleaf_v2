@@ -24,33 +24,30 @@
             </li>
         </ul>
     </nav>
-    <main class="my-3">
+    <main class="my-3 ">
         <div class="container text-center">
-            <div class="row">
-                <div class="col">
-                    <div class="card" style="width: 18rem;" >
+            <div class="row justify-content-center g-2 ">
+                <div class="col-auto ">
+                    <div class="card border border-5 border-primary" style="width: 18rem;" >
                         <div class="card-body">
-                            <h2 class="display-4 fw-bold text-body-emphasis fs-4">Total de Tarefas</h2>
-                            <p class="card-text" th:text="${totalTasks}"></p>
-                            <a href="/list" class="btn btn-primary px-5">Ver Mais</a>
+                            <h2 class="display-4 fw-bold text-body-emphasis fs-4">Total de Tarefas:</h2>
+                            <p class="card-text fs-4" th:text="${totalTasks}"></p>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
+                <div class="col-auto">
+                    <div class="card border border-5 border-warning" style="width: 18rem;">
                         <div class="card-body">
-                            <h2 class="display-4 fw-bold text-body-emphasis fs-4">Pendentes</h2>
-                            <p class="card-text" th:text="${pendingTasks}"></p>
-                            <a href="" class="btn btn-primary px-5">Ver Mais</a>
+                            <h2 class="display-4 fw-bold text-body-emphasis fs-4">Total de Pendentes:</h2>
+                            <p class="card-text fs-4" th:text="${pendingTasks}"></p>
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="card" style="width: 18rem;">
+                <div class="col-auto">
+                    <div class="card border border-5 border-success" style="width: 18rem;">
                         <div class="card-body">
-                            <h2 class="display-4 fw-bold text-body-emphasis fs-4">Concluídas</h2>
-                            <p class="card-text"th:text ="${completedTasks}"></p>
-                            <a href="#" class="btn btn-primary px-5">Ver Mais</a>
+                            <h2 class="display-4 fw-bold text-body-emphasis fs-4">Total de Concluídas:</h2>
+                            <p class="card-text fs-4"th:text ="${completedTasks}"></p>
                         </div>
                     </div>
                 </div>
